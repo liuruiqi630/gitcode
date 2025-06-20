@@ -26,7 +26,7 @@ public:
           }
           // 执行任务
           std::function<void()> task(
-              std::move(tasks.front())); // 这里传入的参数有什么用呢？
+              std::move(tasks.front())); 
           tasks.pop();
           lock.unlock();
           task();
