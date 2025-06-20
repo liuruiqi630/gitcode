@@ -58,7 +58,7 @@ class ThreadPool
     void enqueue(F&& f,Args&&... args)//右值引用+函数模板=万能引用
     {
         std::function<void()> task=
-            std::bind(std::forword<F>(f),std::forward<Args>(args)...);
+            std::bind(std::forward<F>(f),std::forward<Args>(args)...);
             /*bind函数适配器用于固定一些参数以减少传入的参数量
             bind返回是_Binder类型再转化为function
             当函数绑定参数后，void（）里不需要传参
@@ -68,7 +68,7 @@ class ThreadPool
             //对资源都需要互斥访问
             tasks.emplace(std::move(task));
             }
-            condition.notify_one(0);
+            condition.notify_one();
     }
     private:
     bool stop;
