@@ -10,7 +10,7 @@ class ThreadPool
 {
     public:
     //线程池构造函数
-    ThreadPool(int numThreads):stop(false)
+    ThreadPool(int numThreads) :stop(false)
     {
         //为线程组添加指定个数的线程
         for(int i=0;i<numThreads;i++)
@@ -23,8 +23,8 @@ class ThreadPool
                     //lock是unique_lock 类型
                     condition.wait(lock,[this]{
                         //lembda表达式 this捕获外部类即ThreadPool false则阻塞
-                        return !tasks.empty()||stop;}
-                    );//任务队列不为空再继续线程
+                        return !tasks.empty()||stop;
+                    });//任务队列不为空再继续线程
                     if(stop&&tasks.empty())
                     {
                         return;
@@ -47,7 +47,7 @@ class ThreadPool
         }
         //在析构时保证队列中的任务全部完成
         condition.notify_all();//通知全部线程不再阻塞
-        for(auto&t:threads)
+        for (auto& t : threads)
         {
             t.join();
         }
@@ -88,4 +88,5 @@ int main()
             std::cout<<"结束任务"<<i<<std::endl;
         });
     }
+    return 0;
 }
